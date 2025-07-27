@@ -13,15 +13,19 @@
     <header>
         <div class="address" style="padding: 0.2rem; font-size: 1.4rem; font-weight: 200;"></div>
         <div class="temp" style="padding: 0.1rem; font-size: 4rem;"></div>
-        <div class="condition"></div>
         <span>
-            <div class="max"></div>
-            <div class="min"></div>
-            <div class="feels_like"></div>
+            <div class="condition"></div>
+            <div> | </div>
+            <span class="temps">
+                <span><b>H: </b> <div class="max"></div> </span>
+                <span><b>L: </b> <div class="min"></div> </span>
+                <span><b>Feels like: </b> <div class="feels_like"></div> </span>
+            </span>
         </span>
 
     </header>
 
+    
     <div class="details">
         <span>
             <h3 class="currentLocation"></h3>
@@ -29,13 +33,20 @@
         </span>
     </div>
 
-    <div class="hourlyCardsContainer">
-        
-    </div>
+    <span>
+        <h3 style="padding: 0.5rem;">Hourly Forecast: </h3>
+        <div class="hourlyCardsContainer"> </div>
+    </span>
+    
+    <span>
+        <h3 style="padding: 0.5rem;">Daily Forecast: </h3>
+        <div class="dailyCardsContainer"></div>
+    </span>
 
-    <div class="dayCardsContainer">
-
-    </div>
+    <span>
+        <div class="precipitation"></div>
+        <div class="humidity"></div>
+    </span>
 
     <script src="script.js"></script>
 </body>

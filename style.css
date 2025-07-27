@@ -29,9 +29,25 @@ header *{
 .hourlyCardsContainer {
     display: flex;
     gap: 1rem;
+    padding: 0.5rem;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #EEEEEE;
+    border-radius: 7px;
+    padding: 0.4rem;
+    aspect-ratio: 1/1;
 }
 
 .icons {
     max-height: fit-content;
     max-width: fit-content;
+}
+
+.temps {
+    gap: 0.2rem;
 }

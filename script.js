@@ -21,6 +21,12 @@ let feels_like = document.querySelector('header .feels_like')
 let currentLocation = document.querySelector('.currentLocation')
 let description = document.querySelector('.description')
 let hourlyCardsContainer = document.querySelector('.hourlyCardsContainer')
+let dailyCardsContainer = document.querySelector('.dailyCardsContainer');
+
+const monthAbbr = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
 
 function convertHour(epoch){
     const dateUTC = new Date(epoch * 1000);
@@ -43,20 +49,20 @@ function displayHourlyCards(container, hours_data, hourNow){
         }
         hourCard.appendChild(time);
 
-        const temp = document.createElement('div');
-        temp.textContent = hours_data[i].temp;
-        hourCard.appendChild(temp);
-
+        
         const icon = document.createElement('img');
         icon.className='icons';
         icon.src=`WeatherIcons-main/WeatherIcons-main/PNG/2nd Set - Color/${hours_data[i].icon}.png`
-        hourCard.append(icon);
+        hourCard.appendChild(icon);
         
+        const temp = document.createElement('div');
+        temp.textContent = hours_data[i].temp + '  °F';
+        hourCard.appendChild(temp);
 
         container.append(hourCard);
     }
-    
 }
+
 
 async function getData(location){
     try{
@@ -81,11 +87,16 @@ getData(address).then(data =>{
     weatherData= data;
 
     condition.textContent = data.currentConditions.conditions;
-    temp.textContent = data.currentConditions.temp;
+    temp.textContent = data.currentConditions.temp + ' °F';
+    max.textContent = data.days[0].tempmax;
+    min.textContent = data.days[0].tempmin;
+    feels_like.textContent = data.currentConditions.feelslike
     currentLocation.textContent = data.resolvedAddress + ':';
     description.textContent = data.description;
 
     displayHourlyCards(hourlyCardsContainer, data.days[0].hours, hourNow);
+
+
     
 })
 
