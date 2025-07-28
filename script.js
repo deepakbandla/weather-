@@ -1,6 +1,3 @@
-// const today_temp;
-// const tomorrow_temp;
-
 const params = new URLSearchParams(window.location.search);
 const address = params.get("address");
 
@@ -12,6 +9,8 @@ let hourNow = now.getHours();
 let monthNow = now.getMonth();
 let dateNow = now.getDate();
 
+const num_cards=11;
+
 let condition = document.querySelector("header .condition");
 let temp = document.querySelector("header .temp");
 
@@ -20,6 +19,7 @@ let min = document.querySelector("header .min");
 let feels_like = document.querySelector("header .feels_like");
 let currentLocation = document.querySelector(".currentLocation");
 let description = document.querySelector(".description");
+
 let hourlyCardsContainer = document.querySelector(".hourlyCardsContainer");
 let dailyCardsContainer = document.querySelector(".dailyCardsContainer");
 
@@ -38,17 +38,34 @@ const monthAbbr = [
     "Dec",
 ];
 
-function displayHourlyCards(container, hours_data, hourNow) {
-    for (let i = hourNow; i < hours_data.length; i++) {
+const hours24 = [
+  "12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM",
+  "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM",
+  "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM",
+  "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"
+];
+
+
+function displayHourlyCards(container, data, hourNow) {
+
+    let hours_data = data.days[0].hours;
+
+    for (let i = 0; i < num_cards; i++) {
+        if(i>= hours_data.length){
+            hours_data = data.days[1].hours;
+            
+        }
         let hourCard = document.createElement("div");
         hourCard.className = "card";
 
         const time = document.createElement("div");
-        if (hourNow > 12) {
-            time.textContent = String(i - 12) + " PM";
+        if (hourNow + i > 23) {
+            time.textContent = hours24[hourNow+i-1-23];
+            
         } else {
-            time.textContent = String(i) + " AM";
+            time.textContent = hours24[hourNow+i];
         }
+        
         hourCard.appendChild(time);
 
         const icon = document.createElement("img");
@@ -65,7 +82,7 @@ function displayHourlyCards(container, hours_data, hourNow) {
 }
 
 function displayDailyCards(container, days_data) {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < num_cards; i++) {
         const day = days_data[i];
         if (!day) continue;
 
@@ -121,7 +138,7 @@ getData(address).then((data) => {
 
     try {
         if (data.days[0].hours) {
-            displayHourlyCards(hourlyCardsContainer, data.days[0].hours, hourNow);
+            displayHourlyCards(hourlyCardsContainer, data, hourNow);
         } else {
             console.warn("No hourly data available.");
         }
