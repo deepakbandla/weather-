@@ -32,6 +32,12 @@ header *{
     padding: 0.5rem;
 }
 
+.dailyCardsContainer {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
 .card{
     display: flex;
     flex-direction: column;
@@ -40,7 +46,7 @@ header *{
     background-color: #EEEEEE;
     border-radius: 7px;
     padding: 0.4rem;
-    aspect-ratio: 1/1;
+    
 }
 
 .icons {
