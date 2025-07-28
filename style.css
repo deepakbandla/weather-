@@ -15,6 +15,13 @@ header{
     border-bottom: 1px solid gray;
 }
 
+/* .cards{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 0.8rem;
+} */
+
 span{
     display: flex;
     justify-content: center;
@@ -43,8 +50,9 @@ header *{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #EEEEEE;
+    background-color: #eeeeeead;
     border-radius: 7px;
+    gap: 0.3rem;
     padding: 0.4rem;
     
 }

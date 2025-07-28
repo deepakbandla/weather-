@@ -4,6 +4,8 @@ const address = params.get("address");
 const displayAddress = document.querySelector("header .address");
 displayAddress.textContent = address;
 
+
+
 let now = new Date();
 let hourNow = now.getHours();
 let monthNow = now.getMonth();
@@ -128,6 +130,22 @@ async function getData(location) {
 getData(address).then((data) => {
     weatherData = data;
 
+    if(data.days[0].hours[0].precip>0){
+
+        document.body.style.backgroundImage = "url('assets/Calming_Rain_Video_Generated gif.gif')";
+    }
+    else if(data.days[0].hours[0].cloudcover>=50){
+        document.body.style.backgroundImage = "url('assets/Overcast_Weather_Video_Generated gif.gif')";
+    }
+    else {
+        document.body.style.backgroundImage = "url('assets/Video_of_Sun_and_Clouds gif.gif')";
+    }
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.height = '100vh';
+    
+
     condition.textContent = data.currentConditions.conditions;
     temp.textContent = data.currentConditions.temp + " °F";
     max.textContent = data.days[0].tempmax;
@@ -158,3 +176,5 @@ getData(address).then((data) => {
 
     
 });
+
+
