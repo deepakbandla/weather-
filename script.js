@@ -4,8 +4,6 @@ const address = params.get("address");
 const displayAddress = document.querySelector("header .address");
 displayAddress.textContent = address;
 
-
-
 let now = new Date();
 let hourNow = now.getHours();
 let monthNow = now.getMonth();
@@ -24,6 +22,12 @@ let description = document.querySelector(".description");
 
 let hourlyCardsContainer = document.querySelector(".hourlyCardsContainer");
 let dailyCardsContainer = document.querySelector(".dailyCardsContainer");
+
+let precipitation = document.getElementsByClassName('precipitation');
+let humidity = document.getElementsByClassName('humidity');
+let sunrise = document.getElementsByClassName('sunrise');
+let sunset = document.getElementsByClassName('sunset');
+let windspeed = document.getElementsByClassName('windspeed');
 
 const monthAbbr = [
     "Jan",
@@ -76,7 +80,7 @@ function displayHourlyCards(container, data, hourNow) {
         hourCard.appendChild(icon);
 
         const temp = document.createElement("div");
-        temp.textContent = hours_data[i].temp + "  °F";
+        temp.textContent = hours_data[i].temp + " °C";
         hourCard.appendChild(temp);
 
         container.append(hourCard);
@@ -103,7 +107,7 @@ function displayDailyCards(container, days_data) {
         dayCard.appendChild(icon);
 
         const tempDiv = document.createElement("div");
-        tempDiv.textContent = `${day.temp}°F`;
+        tempDiv.textContent = `${day.temp} °C`;
         dayCard.appendChild(tempDiv);
 
         container.appendChild(dayCard);
@@ -113,7 +117,7 @@ function displayDailyCards(container, days_data) {
 async function getData(location) {
     try {
         const response =
-            await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=9SHKL2BBGMWUGSHP794WRTQUJ
+            await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=9SHKL2BBGMWUGSHP794WRTQUJ
 `);
         if (!response.ok) {
             console.error("API error:", response.status, response.statusText);
@@ -130,11 +134,11 @@ async function getData(location) {
 getData(address).then((data) => {
     weatherData = data;
 
-    if(data.days[0].hours[0].precip>0){
+    if(data.currentConditions.precip>0){
 
         document.body.style.backgroundImage = "url('assets/Calming_Rain_Video_Generated gif.gif')";
     }
-    else if(data.days[0].hours[0].cloudcover>=50){
+    else if(data.currentConditions.cloudcover>=50){
         document.body.style.backgroundImage = "url('assets/Overcast_Weather_Video_Generated gif.gif')";
     }
     else {
@@ -147,7 +151,7 @@ getData(address).then((data) => {
     
 
     condition.textContent = data.currentConditions.conditions;
-    temp.textContent = data.currentConditions.temp + " °F";
+    temp.textContent = data.currentConditions.temp + " °C";
     max.textContent = data.days[0].tempmax;
     min.textContent = data.days[0].tempmin;
     feels_like.textContent = data.currentConditions.feelslike;
@@ -173,6 +177,7 @@ getData(address).then((data) => {
     } catch (e) {
         console.error("Error rendering daily forecast:", e);
     }
+
 
     
 });
